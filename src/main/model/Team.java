@@ -21,7 +21,7 @@ public class Team {
     }
 
     // REQUIRES: Non-empty team
-    // EFFECTS: returns the player name with the highest physicality in the team.
+    // EFFECTS: returns the first player name with the highest physicality in the team.
     public String returnHighestPhysicalityPlayer() {
         String returnPlayer = "";
         int highestPhysicality = 0;
@@ -35,7 +35,7 @@ public class Team {
     }
 
     // REQUIRES: Non-empty team
-    // EFFECTS: returns the player name with the highest pace in the team.
+    // EFFECTS: returns the first player name with the highest pace in the team.
     public String  returnHighestPacePlayer() {
         String returnPlayer = "";
         int highestPace = 0;
@@ -49,7 +49,7 @@ public class Team {
     }
 
     // REQUIRES: Non-empty team
-    // EFFECTS: returns the player name with the highest attacking in the team.
+    // EFFECTS: returns the first player name with the highest attacking in the team.
     public String returnHighestAttackingPlayer() {
         String returnPlayer = "";
         int highestAttacking = 0;
@@ -63,7 +63,7 @@ public class Team {
     }
 
     // REQUIRES: Non-empty team
-    // EFFECTS: returns the player name with the highest defending in the team.
+    // EFFECTS: returns the first player name with the highest defending in the team.
     public String returnHighestDefendingPlayer() {
         String returnPlayer = "";
         int highestDefending = 0;
@@ -76,7 +76,7 @@ public class Team {
         return returnPlayer;
     }
 
-    // EFFECTS: returns the player name with the highest overall stats in the team.
+    // EFFECTS: returns the first player name with the highest overall stats in the team.
     public String returnBestPlayer() {
         String returnPlayer = "";
         int highestOverallRating = 0;

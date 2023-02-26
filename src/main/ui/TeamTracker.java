@@ -49,8 +49,11 @@ public class TeamTracker {
             displayChangeMenu();
         } else if (command.equals("r")) {
             displayRemoveMenu();
+        } else if (command.equals("s")) {
+            displayBestStatMenu();
         }
     }
+
 
 
     private void displayMainMenu() {
@@ -60,6 +63,7 @@ public class TeamTracker {
         System.out.println("To view existing players, click v");
         System.out.println("To change a player's stats, click c");
         System.out.println("To remove a player, click r");
+        System.out.println("To return the best player for a specific stat, click s");
         System.out.println("To quit, click q");
     }
 
@@ -151,6 +155,29 @@ public class TeamTracker {
 
         int command = Integer.parseInt(input.next()) - 1;
         this.team.removePlayer(command);
+    }
+
+    private void displayBestStatMenu() {
+        System.out.println("Enter the corresponding for the best stat for each player");
+        System.out.println("1. Defending");
+        System.out.println("2. Attacking");
+        System.out.println("3. Physicality");
+        System.out.println("4. Pace");
+        String command = input.next();
+
+        if (command.equals("1")) {
+            String bestPlayer = team.returnHighestDefendingPlayer();
+            System.out.println(bestPlayer + " is the best defender");
+        } else if (command.equals("2")) {
+            String bestPlayer = team.returnHighestAttackingPlayer();
+            System.out.println(bestPlayer + " is the best attacker");
+        } else if (command.equals("3")) {
+            String bestPlayer = team.returnHighestPhysicalityPlayer();
+            System.out.println(bestPlayer + " is the strongest player");
+        } else if (command.equals("4")) {
+            String bestPlayer = team.returnHighestPacePlayer();
+            System.out.println(bestPlayer + " is the fastest player");
+        }
     }
 
     private int statToChangePrompt() {

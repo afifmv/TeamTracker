@@ -12,9 +12,6 @@ public class Player {
 
     private ArrayList<String> teamLineup;
 
-    public static final String barca = "FC Barcelona";
-    public static final String barcaStadium = "Camp Nou";
-
     // REQUIRES: All stats stay within the range 0 <= stat <= 99.
     public Player(String name, int physicality, int defending, int attacking, int pace) {
         this.name = name;
@@ -60,13 +57,6 @@ public class Player {
     }
 
 
-
-//    // REQUIRES: awayTeam != "" or " "
-//    // MODIFIES: this
-//    // EFFECTS: changes the awayTeam name to the given team name
-//    public void changeTeam(String team) {
-//
-//    }
 
     public String getName() {
         return this.name;
