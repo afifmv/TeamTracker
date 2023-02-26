@@ -16,8 +16,8 @@ public class TeamTest {
 
     @BeforeEach
     public void setup() {
-        player1 = new Player("Afif", 99, 98, 34, 22);
-        player2 = new Player("Azim", 97, 34, 22, 98);
+        player1 = new Player("Afif", 99, 98, 44, 22);
+        player2 = new Player("Azim", 97, 34, 32, 21);
         team = new Team();
         bigTeam = new Team();
         bigTeam.addPlayer(player1);
@@ -40,7 +40,7 @@ public class TeamTest {
         assertEquals("Afif", bigTeam.returnHighestPhysicalityPlayer());
         assertEquals("Afif", bigTeam.returnHighestDefendingPlayer());
         assertEquals("Afif", bigTeam.returnHighestAttackingPlayer());
-        assertEquals("Azim", bigTeam.returnHighestPacePlayer());
+        assertEquals("Afif", bigTeam.returnHighestPacePlayer());
     }
 
     @Test
