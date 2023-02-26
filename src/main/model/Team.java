@@ -3,6 +3,7 @@ package model;
 
 import java.util.LinkedList;
 
+// Team is a class that consists of multiple Player, i.e a collection of Player
 public class Team {
     LinkedList<Player> players;
 
@@ -54,7 +55,7 @@ public class Team {
         int highestAttacking = 0;
         for (Player player: this.players) {
             if (player.getAttacking() > highestAttacking) {
-                highestAttacking = player.getAttacking();;
+                highestAttacking = player.getAttacking();
                 returnPlayer = player.getName();
             }
         }
@@ -79,7 +80,7 @@ public class Team {
     public String returnBestPlayer() {
         String returnPlayer = "";
         int highestOverallRating = 0;
-        int currentRating = 0;
+        int currentRating;
         for (Player player : this.players) {
             currentRating = player.getOverallStats();
             if (currentRating > highestOverallRating) {
@@ -104,10 +105,7 @@ public class Team {
     // REQUIRES: player does exist in Array
     // EFFECTS: returns all the players in the team
     public LinkedList<Player> returnsPlayers() {
-        LinkedList<Player> returnList = new LinkedList<>();
-        for (Player player: this.players) {
-            returnList.add(player);
-        }
+        LinkedList<Player> returnList = new LinkedList<>(this.players);
         return returnList;
     }
 
@@ -117,6 +115,14 @@ public class Team {
 
     public int getSize() {
         return players.size();
+    }
+
+    // REQUIRES: Player exists in team
+    // MODIFIES: this
+    // EFFECTS: removes player from team and returns true
+    public boolean removePlayer(int index) {
+        this.players.remove(index);
+        return true;
     }
 
 

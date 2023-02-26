@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+// Player is a class that represents a football player with their attributes
 public class Player {
     private String name;
     private int physicality;

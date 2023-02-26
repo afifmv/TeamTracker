@@ -72,6 +72,13 @@ public class TeamTest {
         assertEquals(assertList, this.bigTeam.returnsPlayers());
     }
 
+    @Test
+    public void testRemovePlayer() {
+        assertTrue(this.bigTeam.removePlayer(0));
+        LinkedList<Player> assertList = new LinkedList<>();
+        assertList.add(player2);
+        assertEquals(assertList, this.bigTeam.returnsPlayers());
+    }
 
 
 

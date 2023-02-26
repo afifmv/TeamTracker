@@ -47,8 +47,11 @@ public class TeamTracker {
             displayViewMenu();
         } else if (command.equals("c")) {
             displayChangeMenu();
+        } else if (command.equals("r")) {
+            displayRemoveMenu();
         }
     }
+
 
     private void displayMainMenu() {
         System.out.println("\nWelcome to TeamTracker, an efficient way to manage your "
@@ -56,6 +59,7 @@ public class TeamTracker {
         System.out.println("To add a player, click a");
         System.out.println("To view existing players, click v");
         System.out.println("To change a player's stats, click c");
+        System.out.println("To remove a player, click r");
         System.out.println("To quit, click q");
     }
 
@@ -138,6 +142,15 @@ public class TeamTracker {
             selectedPlayer.changeName(command);
             System.out.println("Successfully changed player name to" + command);
         }
+    }
+
+    private void displayRemoveMenu() {
+        displayViewMenu();
+        System.out.println("Please choose the player you wish to remove by entering the corresponding "
+                + "number of the player.");
+
+        int command = Integer.parseInt(input.next()) - 1;
+        this.team.removePlayer(command);
     }
 
     private int statToChangePrompt() {
