@@ -105,8 +105,7 @@ public class Team {
     // REQUIRES: player does exist in Array
     // EFFECTS: returns all the players in the team
     public LinkedList<Player> returnsPlayers() {
-        LinkedList<Player> returnList = new LinkedList<>(this.players);
-        return returnList;
+        return new LinkedList<>(this.players);
     }
 
     public LinkedList<Player> getPlayers() {

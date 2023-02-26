@@ -10,7 +10,6 @@ public class Player {
     private int attacking;
     private int pace;
 
-    private ArrayList<String> teamLineup;
 
     // REQUIRES: All stats stay within the range 0 <= stat <= 99.
     public Player(String name, int physicality, int defending, int attacking, int pace) {
