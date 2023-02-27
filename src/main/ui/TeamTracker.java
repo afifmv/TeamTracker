@@ -51,10 +51,10 @@ public class TeamTracker {
             displayRemoveMenu();
         } else if (command.equals("s")) {
             displayBestStatMenu();
+        } else if (command.equals("z")) {
+            displaySpecificPlayerStatsMenu();
         }
     }
-
-
 
     private void displayMainMenu() {
         System.out.println("\nWelcome to TeamTracker, an efficient way to manage your "
@@ -63,6 +63,7 @@ public class TeamTracker {
         System.out.println("To view existing players, click v");
         System.out.println("To change a player's stats, click c");
         System.out.println("To remove a player, click r");
+        System.out.println("To view the stats of a specific player, click z");
         System.out.println("To return the best player for a specific stat, click s");
         System.out.println("To quit, click q");
     }
@@ -178,6 +179,28 @@ public class TeamTracker {
             String bestPlayer = team.returnHighestPacePlayer();
             System.out.println(bestPlayer + " is the fastest player");
         }
+    }
+
+    private void displaySpecificPlayerStatsMenu() {
+        String command;
+
+        System.out.println("Please choose the player you wish to change the stats of by entering the corresponding "
+                + "number of the player.");
+        List<Player> listOfPlayers = this.team.returnsPlayers();
+        int count = 1;
+        for (Player player: listOfPlayers) {
+            System.out.println(count + ". " + player.getName());
+            count++;
+        }
+        command = input.next();
+        int indexToRetrieve = Integer.parseInt(command) - 1;
+        selectedPlayer = listOfPlayers.get(indexToRetrieve);
+
+        System.out.println(selectedPlayer.getName() + " stats are as follows,");
+        System.out.println("Defending: " + selectedPlayer.getDefending());
+        System.out.println("Attacking: " + selectedPlayer.getAttacking());
+        System.out.println("Physicality: " + selectedPlayer.getPhysicality());
+        System.out.println("Pace: " + selectedPlayer.getPace());
     }
 
     private int statToChangePrompt() {
