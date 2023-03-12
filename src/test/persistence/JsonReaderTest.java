@@ -2,13 +2,12 @@ package persistence;
 
 import model.Player;
 import model.Team;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
-import static org.junit.Assert.*;
+;import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonReaderTest extends JsonTest {
 
