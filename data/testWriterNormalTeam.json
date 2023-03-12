@@ -1,0 +1,16 @@
+{"players": [
+    {
+        "pace": 56,
+        "name": "Lionel",
+        "defending": 23,
+        "physicality": 45,
+        "attacking": 34
+    },
+    {
+        "pace": 78,
+        "name": "Afif",
+        "defending": 23,
+        "physicality": 56,
+        "attacking": 34
+    }
+]}

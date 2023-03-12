@@ -2,23 +2,33 @@ package ui;
 
 import model.Player;
 import model.Team;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 public class TeamTracker {
+    private static final String JSON_STORE = "./data/team.json";
     private Scanner input;
-    private final Team team = new Team();
+    private Team team = new Team();
     private Player selectedPlayer;
 
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
     // EFFECTS: runs the teller application
-    public TeamTracker() {
+    public TeamTracker() throws FileNotFoundException {
         runTeamTracker();
     }
 
     // MODIFIES: this
     // EFFECTS: processes user input
     private void runTeamTracker() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         boolean keepGoing = true;
         String command;
 
@@ -39,6 +49,8 @@ public class TeamTracker {
         System.out.println("\nGoodbye! Hope you enjoyed your time at TeamTracker");
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user command
     private void processCommand(String command) {
         if (command.equals("a")) {
             displayAddMenu();
@@ -49,13 +61,20 @@ public class TeamTracker {
             displayChangeMenu();
         } else if (command.equals("r")) {
             displayRemoveMenu();
-        } else if (command.equals("s")) {
+        } else if (command.equals("t")) {
             displayBestStatMenu();
         } else if (command.equals("z")) {
             displaySpecificPlayerStatsMenu();
+        } else if (command.equals("s")) {
+            saveTeam();
+        } else if (command.equals("l")) {
+            loadTeam();
+        } else {
+            System.out.println("Invalid Selection");
         }
     }
 
+    // EFFECTS: displays menu of options to user
     private void displayMainMenu() {
         System.out.println("\nWelcome to TeamTracker, an efficient way to manage your "
                 + "team and get the player for each stat!");
@@ -64,10 +83,13 @@ public class TeamTracker {
         System.out.println("To change a player's stats, click c");
         System.out.println("To remove a player, click r");
         System.out.println("To view the stats of a specific player, click z");
-        System.out.println("To return the best player for a specific stat, click s");
+        System.out.println("To return the best player for a specific stat, click t");
+        System.out.println("To save team to file, type s");
+        System.out.println("To load work from file, l");
         System.out.println("To quit, click q");
     }
 
+    // EFFECTS: displays the add player menu to user
     private void displayAddMenu() {
         String command;
 
@@ -213,5 +235,28 @@ public class TeamTracker {
     private void init() {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+    }
+
+    // EFFECTS: saves the team to file
+    private void saveTeam() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(team);
+            jsonWriter.close();
+            System.out.println("Saved Team succesfully to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads team from file
+    private void loadTeam() {
+        try {
+            team = jsonReader.read();
+            System.out.println("Loaded Team successfully from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

@@ -1,10 +1,14 @@
 package model;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.LinkedList;
 
 // Team is a class that consists of multiple Player, i.e a collection of Player
-public class Team {
+public class Team implements Writable {
     LinkedList<Player> players;
 
     // EFFECTS: instantiates a new team with an empty list of players
@@ -122,6 +126,24 @@ public class Team {
     public boolean removePlayer(int index) {
         this.players.remove(index);
         return true;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("players",  playersToJson());
+        return json;
+    }
+
+    // EFFECTS: returns players in this team as a JSON array
+    private JSONArray playersToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Player player : players) {
+            jsonArray.put(player.toJson());
+        }
+
+        return jsonArray;
     }
 
 

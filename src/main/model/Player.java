@@ -1,9 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Player is a class that represents a football player with their attributes
-public class Player {
+public class Player implements Writable {
     private String name;
     private int physicality;
     private int defending;
@@ -79,6 +82,17 @@ public class Player {
 
     public int getOverallStats() {
         return getPace() + getDefending() + getAttacking() + getPhysicality();
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("physicality", physicality);
+        json.put("attacking", attacking);
+        json.put("defending", defending);
+        json.put("pace", pace);
+        return json;
     }
 
 }
