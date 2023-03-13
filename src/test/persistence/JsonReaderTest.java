@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 ;import static org.junit.jupiter.api.Assertions.*;
 
+// JsonSerializationDemo. (2021). Retrieved March 13, 2023, from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
 public class JsonReaderTest extends JsonTest {
 
     @Test

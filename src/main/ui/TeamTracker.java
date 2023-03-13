@@ -13,13 +13,13 @@ import java.util.Scanner;
 public class TeamTracker {
     private static final String JSON_STORE = "./data/team.json";
     private Scanner input;
-    private Team team = new Team();
+    private Team team;
     private Player selectedPlayer;
 
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-    // EFFECTS: runs the teller application
+    // EFFECTS: runs the team application
     public TeamTracker() throws FileNotFoundException {
         runTeamTracker();
     }
@@ -115,6 +115,7 @@ public class TeamTracker {
         this.team.addPlayer(selectedPlayer);
     }
 
+    // EFFECTS: displays all the players names numbered
     private void displayViewMenu() {
         List<String> listOfPlayers = this.team.returnsNamesOfTeam();
         int count = 1;
@@ -124,6 +125,7 @@ public class TeamTracker {
         }
     }
 
+    // EFFECTS: displays the menu for changing a player's stats
     private void displayChangeMenu() {
         String command;
 
@@ -148,6 +150,7 @@ public class TeamTracker {
 
     }
 
+    // EFFECTS: displays the menu displaying the choice to choose a specific stat to be changed
     private void displayChangePlayerSubMenu(String command) {
         if (command.equals("1")) {
             selectedPlayer.changeDefending(statToChangePrompt());
@@ -171,6 +174,7 @@ public class TeamTracker {
         }
     }
 
+    // EFFECTS: displays the menu for removing a player from team
     private void displayRemoveMenu() {
         displayViewMenu();
         System.out.println("Please choose the player you wish to remove by entering the corresponding "
@@ -180,6 +184,7 @@ public class TeamTracker {
         this.team.removePlayer(command);
     }
 
+    // EFFECTS: displays the menu for changing a player's stats
     private void displayBestStatMenu() {
         System.out.println("Enter the corresponding for the best stat for each player");
         System.out.println("1. Defending");
@@ -203,10 +208,11 @@ public class TeamTracker {
         }
     }
 
+    // EFFECTS: displays the menu for choosing to display the stats of a specific player
     private void displaySpecificPlayerStatsMenu() {
         String command;
 
-        System.out.println("Please choose the player you wish to change the stats of by entering the corresponding "
+        System.out.println("Please choose the player you wish to view the stats of by entering the corresponding "
                 + "number of the player.");
         List<Player> listOfPlayers = this.team.returnsPlayers();
         int count = 1;
@@ -225,6 +231,7 @@ public class TeamTracker {
         System.out.println("Pace: " + selectedPlayer.getPace());
     }
 
+    // EFFECTS: returns an int that is used for changing the stat
     private int statToChangePrompt() {
         String command;
         System.out.println("Enter the number you wish to change to");
@@ -232,9 +239,12 @@ public class TeamTracker {
         return Integer.parseInt(command);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes a new team
     private void init() {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        team = new Team();
     }
 
     // EFFECTS: saves the team to file

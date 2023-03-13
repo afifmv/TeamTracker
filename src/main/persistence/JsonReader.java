@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import org.json.*;
 
+// JsonSerializationDemo. (2021). Retrieved March 13, 2023, from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 // Represents a reader that reads team from JSON data stored in file
 public class JsonReader {
     private String source;
