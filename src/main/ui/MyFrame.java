@@ -28,41 +28,14 @@ public class MyFrame extends JFrame {
 
 
     public MyFrame() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         setTitle("Team Tracker");
         setSize(width,height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         displayLoadingMenu();
-
-//        JFrame frame = new JFrame("GridBagLayout Example");
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//        JPanel panel = new JPanel(new GridBagLayout());
-//
-//        GridBagConstraints c = new GridBagConstraints();
-//        c.insets = new Insets(5, 5, 5, 5); // padding around components
-//        c.anchor = GridBagConstraints.LINE_START; // alignment of component within cell
-//
-//        c.gridx = 0; // column 0
-//        c.gridy = 0; // row 0
-//        panel.add(new JLabel("Name:"), c); // add label to cell (0, 0)
-//
-//        c.gridx = 1; // column 1
-//        c.gridy = 0; // row 0
-//        panel.add(new JTextField(10), c); // add text field to cell (1, 0)
-//
-//        c.gridx = 0; // column 0
-//        c.gridy = 1; // row 1
-//        panel.add(new JLabel("Email:"), c); // add label to cell (0, 1)
-//
-//        c.gridx = 1; // column 1
-//        c.gridy = 1; // row 1
-//        panel.add(new JTextField(10), c); // add text field to cell (1, 1)
-//
-//        frame.add(panel);
-//        frame.pack();
-//        frame.setVisible(true);
 
     }
 
@@ -99,18 +72,10 @@ public class MyFrame extends JFrame {
     private void displayButtonsOnTheSide() {
         int buttonXcoordinate = 10;
 
-        JButton addPlayer = new JButton("Add Player");
-        addPlayer.setPreferredSize(new Dimension(400, 50));
-        addPlayer.setBounds(buttonXcoordinate, 10, 100, 50);
-
-        JButton viewTeam = new JButton("View Team");
-        viewTeam.setBounds(buttonXcoordinate, 60, 100, 50 );
-
-        JButton saveTeam = new JButton("Save Team");
-        saveTeam.setBounds(buttonXcoordinate, 110, 100, 50 );
-
-        JButton loadTeam = new JButton("Load Team");
-        loadTeam.setBounds(buttonXcoordinate, 160, 100, 50 );
+        JButton addPlayer = getjButton(buttonXcoordinate, 10, "Add Player");
+        JButton viewTeam = getjButton(buttonXcoordinate, 60, "View Team");
+        JButton saveTeam = getjButton(buttonXcoordinate, 110, "Save Team");
+        JButton loadTeam = getjButton(buttonXcoordinate, 160, "Load Team");
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.setLayout(null);
@@ -118,6 +83,15 @@ public class MyFrame extends JFrame {
         buttonPanel.add(Box.createVerticalStrut(10));
 
         buttonPanel.add(addPlayer, BorderLayout.WEST);
+        setButtonActions(addPlayer, viewTeam, saveTeam, loadTeam, buttonPanel);
+
+        this.add(buttonPanel);
+
+
+    }
+
+    private void setButtonActions(JButton addPlayer, JButton viewTeam, JButton saveTeam,
+                                  JButton loadTeam, JPanel buttonPanel) {
         addPlayer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -141,10 +115,13 @@ public class MyFrame extends JFrame {
                 loadTeam();
             }
         });
+    }
 
-        this.add(buttonPanel);
-
-
+    private JButton getjButton(int buttonXcoordinate, int ycoordinate, String foo) {
+        JButton addPlayer = new JButton(foo);
+        addPlayer.setPreferredSize(new Dimension(400, 50));
+        addPlayer.setBounds(buttonXcoordinate, ycoordinate, 100, 50);
+        return addPlayer;
     }
 
     private void addPlayerMenu() {
@@ -160,7 +137,8 @@ public class MyFrame extends JFrame {
         JTextField attackingField = displayInputsForAddingPlayer(panel, "Attacking: ");
         JTextField paceField = displayInputsForAddingPlayer(panel, "Pace: ");
 
-        JButton submitPlayer = createPlayerButton(nameField, defendingField, physicalityField, attackingField, paceField);
+        JButton submitPlayer = createPlayerButton(nameField, defendingField, physicalityField,
+                attackingField, paceField);
 
         add(submitPlayer);
         add(panel);
@@ -169,7 +147,8 @@ public class MyFrame extends JFrame {
 
     }
 
-    private JButton createPlayerButton(JTextField nameField, JTextField defendingField, JTextField physicalityField, JTextField attackingField, JTextField paceField) {
+    private JButton createPlayerButton(JTextField nameField, JTextField defendingField,
+                                       JTextField physicalityField, JTextField attackingField, JTextField paceField) {
         JButton submitPlayer = new JButton("Add Player!");
         submitPlayer.addActionListener(new ActionListener() {
             @Override
@@ -205,7 +184,7 @@ public class MyFrame extends JFrame {
 //        this.revalidate();
 //        this.repaint();
 //
-        for (int i = 0; i < components.getComponentCount() ;i++) {
+        for (int i = 0; i < components.getComponentCount();i++) {
             Component component = components.getComponent(i);
             component.setVisible(false);
         }
