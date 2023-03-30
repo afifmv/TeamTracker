@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 
 public class MainGUI {
     public static void main(String[] args) {
-        MyFrame frame = new MyFrame();
+        FrameFinal frame = new FrameFinal();
         frame.setVisible(true);
     }
 }

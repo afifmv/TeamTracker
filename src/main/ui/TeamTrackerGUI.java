@@ -2,6 +2,8 @@ package ui;
 
 import model.Player;
 import model.Team;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,14 +12,16 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import persistence.JsonReader;
-import persistence.JsonWriter;
-
 import static java.awt.Font.PLAIN;
 
-public class MyFrame extends JFrame {
+public class TeamTrackerGUI extends JFrame {
     private static final int width = 600;
     private static final int height = 600;
+
+    private JPanel loadingMenu = new JPanel();
+    private JPanel mainMenu = new JPanel(new BorderLayout());
+    private JPanel buttonPanel = new JPanel();
+    private JPanel addPlayerPanel = new JPanel(new FlowLayout());
 
     private Player player;
     private Team team = new Team();
@@ -27,46 +31,50 @@ public class MyFrame extends JFrame {
     private static final String JSON_STORE = "./data/team.json";
 
 
-    public MyFrame() {
+    public TeamTrackerGUI() {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+        
         setTitle("Team Tracker");
-        setSize(width, height);
+        setSize(width,height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setLayout(new GridLayout());
+        
+        createLoadingPanel();
+        createMainMenu();
+        createAddPlayerMenu();
 
-        displayLoadingMenu();
-
+        loadingMenu.setVisible(true);
+        addPlayerPanel.setVisible(false);
     }
 
-    private void displayLoadingMenu() {
+    private void createMainMenu() {
+        displayButtonsOnTheSide();
+        add(mainMenu);
+        mainMenu.setVisible(false);
+    }
+
+    private void createLoadingPanel() {
         JLabel welcomeMessage = new JLabel("Welcome to Team Tracker");
         welcomeMessage.setFont(new Font("Times New Roman", PLAIN, 20));
-        welcomeMessage.setBorder(BorderFactory.createEmptyBorder(0, (width / 3),0,0));
-        add(welcomeMessage, BorderLayout.CENTER);
+        welcomeMessage.setBorder(BorderFactory.createEmptyBorder(0, (width / 3) + 10,0,0));
+
+        loadingMenu.setLayout(new BorderLayout());
+        loadingMenu.add(welcomeMessage, BorderLayout.NORTH);
 
         JButton button = new JButton("Click Me!");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showMainMenu();
+                loadingMenu.setVisible(false);
+                mainMenu.setVisible(true);
             }
         });
-        add(button, BorderLayout.PAGE_END);
-    }
 
-    private void showMainMenu() {
-        hideComponents();
-        displayButtonsOnTheSide();
-        displayHeaderAtTop();
-    }
+        loadingMenu.add(button, BorderLayout.PAGE_END);
+        add(loadingMenu);
 
-    private void displayHeaderAtTop() {
-        JPanel fooFrame = new JPanel();
-        JLabel headerMessage = new JLabel("TeamTracker");
-
-        fooFrame.add(headerMessage, BorderLayout.NORTH);
-        add(fooFrame, BorderLayout.NORTH);
+        loadingMenu.setVisible(false);
     }
 
     private void displayButtonsOnTheSide() {
@@ -77,13 +85,13 @@ public class MyFrame extends JFrame {
         JButton saveTeam = getjButton(buttonXcoordinate, 110, "Save Team");
         JButton loadTeam = getjButton(buttonXcoordinate, 160, "Load Team");
 
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.setLayout(null);
 
+//        buttonPanel.setLayout(new GridLayout());
         buttonPanel.add(Box.createVerticalStrut(10));
 
-        buttonPanel.add(addPlayer, BorderLayout.WEST);
         setButtonActions(addPlayer, viewTeam, saveTeam, loadTeam, buttonPanel);
+
+        mainMenu.add(buttonPanel, BorderLayout.CENTER);
 
     }
 
@@ -92,12 +100,11 @@ public class MyFrame extends JFrame {
         addPlayer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addPlayerMenu();
+                mainMenu.setVisible(false);
+                addPlayer.setVisible(true);
             }
         });
 
-        buttonPanel.add(viewTeam);
-        buttonPanel.add(saveTeam);
         saveTeam.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,43 +112,32 @@ public class MyFrame extends JFrame {
             }
         });
 
-        buttonPanel.add(loadTeam);
         loadTeam.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadTeam();
             }
         });
+
+        buttonPanel.add(addPlayer, BorderLayout.CENTER);
+        buttonPanel.add(viewTeam, BorderLayout.CENTER);
+        buttonPanel.add(saveTeam, BorderLayout.CENTER);
+        buttonPanel.add(loadTeam, BorderLayout.CENTER);
     }
 
-    private JButton getjButton(int buttonXcoordinate, int ycoordinate, String foo) {
-        JButton addPlayer = new JButton(foo);
-        addPlayer.setPreferredSize(new Dimension(400, 50));
-        addPlayer.setBounds(buttonXcoordinate, ycoordinate, 100, 50);
-        return addPlayer;
-    }
-
-    private void addPlayerMenu() {
-        hideComponents();
-
-
-        this.setLayout(new FlowLayout());
-        JPanel panel = new JPanel(new GridLayout(5, 5));
-
-        JTextField nameField = displayInputsForAddingPlayer(panel, "Name: ");
-        JTextField defendingField = displayInputsForAddingPlayer(panel, "Defending: ");
-        JTextField physicalityField = displayInputsForAddingPlayer(panel, "Physicality: ");
-        JTextField attackingField = displayInputsForAddingPlayer(panel, "Attacking: ");
-        JTextField paceField = displayInputsForAddingPlayer(panel, "Pace: ");
+    private void createAddPlayerMenu() {
+        JTextField nameField = displayInputsForAddingPlayer(addPlayerPanel, "Name: ");
+        JTextField defendingField = displayInputsForAddingPlayer(addPlayerPanel, "Defending: ");
+        JTextField physicalityField = displayInputsForAddingPlayer(addPlayerPanel, "Physicality: ");
+        JTextField attackingField = displayInputsForAddingPlayer(addPlayerPanel, "Attacking: ");
+        JTextField paceField = displayInputsForAddingPlayer(addPlayerPanel, "Pace: ");
 
         JButton submitPlayer = createPlayerButton(nameField, defendingField, physicalityField,
                 attackingField, paceField);
 
-        add(submitPlayer);
-        add(panel);
-//
-//        add(namePanel, BorderLayout.NORTH);
-
+        addPlayerPanel.add(submitPlayer);
+        add(addPlayerPanel);
+        addPlayerPanel.setVisible(false);
     }
 
     private JButton createPlayerButton(JTextField nameField, JTextField defendingField,
@@ -159,7 +155,6 @@ public class MyFrame extends JFrame {
                 player = new Player(name, physicality, defending, attacking, pace);
                 team.addPlayer(player);
 
-                showMainMenu();
             }
         });
         return submitPlayer;
@@ -169,22 +164,17 @@ public class MyFrame extends JFrame {
         JLabel inputLabel = new JLabel(input);
         JTextField inputTextField = new JTextField(5);
 
-        panel.add(inputLabel);
-        panel.add(inputTextField);
+        panel.add(inputLabel, BorderLayout.WEST);
+        panel.add(inputTextField,  BorderLayout.WEST);
 
         return inputTextField;
     }
 
-    private void hideComponents() {
-        Container components = this.getContentPane();
-//        getContentPane().removeAll();
-//        this.revalidate();
-//        this.repaint();
-//
-        for (int i = 0; i < components.getComponentCount();i++) {
-            Component component = components.getComponent(i);
-            component.setVisible(false);
-        }
+    private JButton getjButton(int buttonXcoordinate, int ycoordinate, String foo) {
+        JButton addPlayer = new JButton(foo);
+        addPlayer.setPreferredSize(new Dimension(400, 50));
+        addPlayer.setBounds(buttonXcoordinate, ycoordinate, 100, 50);
+        return addPlayer;
     }
 
     // EFFECTS: saves the team to file
