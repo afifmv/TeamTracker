@@ -94,6 +94,11 @@ public class FrameFinal extends JFrame {
             }
         });
 
+        setActionsExtension(viewPlayer, bestPlayer);
+
+    }
+
+    private void setActionsExtension(JButton viewPlayer, JButton bestPlayer) {
         viewPlayer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,9 +112,7 @@ public class FrameFinal extends JFrame {
                 bestPlayerActionListener();
             }
         });
-
     }
-
 
 
     // EFFECTS: creates a pop up frame to display the best player for each stat
@@ -134,13 +137,14 @@ public class FrameFinal extends JFrame {
 
 
     // EFFECTS: sets the button actions on the best player popup frame
-    private void setBestPlayerForSpecificStatButtonAction(JButton bestPhysicality, JButton bestDefending, JButton bestAttacking,
-                                                          JButton bestPace) {
-        JFrame displayPlayerFrame = createPopUpFrame();
-        displayPlayerFrame.setSize(new Dimension(width / 4, height / 4));
+    private void setBestPlayerForSpecificStatButtonAction(JButton bestPhysicality, JButton bestDefending,
+                                                          JButton bestAttacking, JButton bestPace) {
+
         bestPhysicality.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFrame displayPlayerFrame = createPopUpFrame();
+                displayPlayerFrame.setSize(new Dimension(width / 4, height / 4));
                 String name = team.returnHighestPhysicalityPlayer();
                 displayLabelOnPopUpForBestStat(name, displayPlayerFrame);
             }
@@ -148,19 +152,23 @@ public class FrameFinal extends JFrame {
         bestDefending.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFrame displayPlayerFrame = createPopUpFrame();
+                displayPlayerFrame.setSize(new Dimension(width / 4, height / 4));
                 String name = team.returnHighestDefendingPlayer();
                 displayLabelOnPopUpForBestStat(name, displayPlayerFrame);
             }
         });
-        setBestPlayerForSpecificStatButtonActionExtension(bestAttacking, bestPace, displayPlayerFrame);
+        setBestPlayerForSpecificStatButtonActionExtension(bestAttacking, bestPace);
     }
 
 
     // EFFECTS: sets the remaining button actions on the best player popup frame
-    private void setBestPlayerForSpecificStatButtonActionExtension(JButton bestAttacking, JButton bestPace, JFrame displayPlayerFrame) {
+    private void setBestPlayerForSpecificStatButtonActionExtension(JButton bestAttacking, JButton bestPace) {
         bestAttacking.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFrame displayPlayerFrame = createPopUpFrame();
+                displayPlayerFrame.setSize(new Dimension(width / 4, height / 4));
                 String name = team.returnHighestAttackingPlayer();
                 displayLabelOnPopUpForBestStat(name, displayPlayerFrame);
             }
@@ -168,6 +176,8 @@ public class FrameFinal extends JFrame {
         bestPace.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFrame displayPlayerFrame = createPopUpFrame();
+                displayPlayerFrame.setSize(new Dimension(width / 4, height / 4));
                 String name = team.returnHighestPacePlayer();
                 displayLabelOnPopUpForBestStat(name, displayPlayerFrame);
             }
@@ -239,7 +249,8 @@ public class FrameFinal extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: creates a player with the given inputs from the fields and adds to team
-    private void createPlayerAndAddToTeam(JTextField nameField, JTextField physicalityField, JTextField defendingField, JTextField attackingField, JTextField paceField) {
+    private void createPlayerAndAddToTeam(JTextField nameField, JTextField physicalityField, JTextField defendingField,
+                                          JTextField attackingField, JTextField paceField) {
         String name = nameField.getText();
         int physicality = Integer.parseInt(physicalityField.getText());
         int defending = Integer.parseInt(defendingField.getText());
