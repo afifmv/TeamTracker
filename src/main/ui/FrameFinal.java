@@ -27,6 +27,8 @@ public class FrameFinal extends JFrame {
     private JsonReader jsonReader;
     private static final String JSON_STORE = "./data/team.json";
 
+    private ImageIcon image = new ImageIcon("./fcm_rgbf_s.png");
+
 
     // MODIFIES: this
     // EFFECTS: begins the GUI application
@@ -98,6 +100,7 @@ public class FrameFinal extends JFrame {
 
     }
 
+    // EFFECTS: sets the remaining button actions on the main menu
     private void setActionsExtension(JButton viewPlayer, JButton bestPlayer) {
         viewPlayer.addActionListener(new ActionListener() {
             @Override
@@ -118,16 +121,19 @@ public class FrameFinal extends JFrame {
     // EFFECTS: creates a pop up frame to display the best player for each stat
     private void bestPlayerActionListener() {
         JFrame bestPlayerPopUp = createPopUpFrame();
+        bestPlayerPopUp.setSize(width, height * 2);
 
         JButton bestPhysicality = new JButton("Best Physicality");
         JButton bestDefending = new JButton("Best Defending");
         JButton bestAttacking = new JButton("Best Attacking");
         JButton bestPace = new JButton("Best Pace");
+        JLabel imageLabel = new JLabel(image);
 
         bestPlayerPopUp.add(bestPhysicality);
         bestPlayerPopUp.add(bestDefending);
         bestPlayerPopUp.add(bestAttacking);
         bestPlayerPopUp.add(bestPace);
+        bestPlayerPopUp.add(imageLabel);
 
         setBestPlayerForSpecificStatButtonAction(bestPhysicality, bestDefending, bestAttacking,
                 bestPace);
@@ -231,6 +237,8 @@ public class FrameFinal extends JFrame {
                 addPlayerPopUp.setVisible(false);
             }
         });
+
+
 
         addPlayerPopUp.add(empty);
         addPlayerPopUp.add(submitAddPlayer);
