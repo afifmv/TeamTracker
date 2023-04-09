@@ -21,6 +21,7 @@ public class Team implements Writable {
     // EFFECTS: adds player and returns true
     public boolean addPlayer(Player requiredPlayer) {
         players.add(requiredPlayer);
+        EventLog.getInstance().logEvent(new Event(requiredPlayer.getName() + " has been added to the team"));
         return true;
     }
 
@@ -35,6 +36,7 @@ public class Team implements Writable {
                 returnPlayer = player.getName();
             }
         }
+        EventLog.getInstance().logEvent(new Event("Returned best Physical player has been added to the team"));
         return returnPlayer;
     }
 
@@ -49,6 +51,7 @@ public class Team implements Writable {
                 returnPlayer = player.getName();
             }
         }
+        EventLog.getInstance().logEvent(new Event("Returned best Physical player has been added to the team"));
         return returnPlayer;
     }
 
@@ -63,6 +66,7 @@ public class Team implements Writable {
                 returnPlayer = player.getName();
             }
         }
+        EventLog.getInstance().logEvent(new Event("Returned best Attacking player has been added to the team"));
         return returnPlayer;
     }
 
@@ -77,6 +81,7 @@ public class Team implements Writable {
                 returnPlayer = player.getName();
             }
         }
+        EventLog.getInstance().logEvent(new Event("Returned best Defending player has been added to the team"));
         return returnPlayer;
     }
 
@@ -92,6 +97,7 @@ public class Team implements Writable {
                 returnPlayer = player.getName();
             }
         }
+        EventLog.getInstance().logEvent(new Event("Returned Best player has been added to the team"));
         return returnPlayer;
     }
 

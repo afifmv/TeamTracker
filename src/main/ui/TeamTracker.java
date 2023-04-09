@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Player;
 import model.Team;
 import persistence.JsonReader;
@@ -18,6 +20,8 @@ public class TeamTracker {
 
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+
+    private EventLog eventLog = EventLog.getInstance();
 
     // EFFECTS: runs the team application
     public TeamTracker() throws FileNotFoundException {
@@ -44,6 +48,10 @@ public class TeamTracker {
             } else {
                 processCommand(command);
             }
+        }
+
+        for (Event e: eventLog) {
+            System.out.println(e);
         }
 
         System.out.println("\nGoodbye! Hope you enjoyed your time at TeamTracker");

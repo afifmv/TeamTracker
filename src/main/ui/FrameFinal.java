@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Player;
 import model.Team;
 import persistence.JsonReader;
@@ -9,12 +11,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+// a class
 public class FrameFinal extends JFrame {
     private static final int width = 600;
     private static final int height = 600;
@@ -28,6 +33,7 @@ public class FrameFinal extends JFrame {
     private static final String JSON_STORE = "./data/team.json";
 
     private ImageIcon image = new ImageIcon("./fcm_rgbf_s.png");
+    private EventLog eventLog = EventLog.getInstance();
 
 
     // MODIFIES: this
@@ -35,6 +41,18 @@ public class FrameFinal extends JFrame {
     public FrameFinal() {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                for (Event event: eventLog) {
+                    System.out.println(event);
+                }
+
+                System.exit(0);
+            }
+        });
+
+
 
         setTitle("Team Tracker");
         setSize(width,height);
