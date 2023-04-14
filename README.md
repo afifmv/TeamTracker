@@ -50,3 +50,16 @@ a specific stat and displays the best player for so.
 - You can locate my visual component by clicking the Best Player button, where the pop-up window will display the FIFA logo at the bottom.
 - You can save the state of my application by clicking the save team button on the main menu
 - You can reload the state of my application by clicking the load team button on the main menu
+
+## Phase 4: Task 2
+![](Phase4Task2.png)
+
+## Phase 4: Task 3
+
+The first refactoring change I would like to have made was to create a separate class for each stat of the players,
+as they are distinctly different from one another. If I did this, I could use the Composite Pattern to make it much
+easier to iterate over each and do any functionality required.
+
+The second refactoring decision I could've made was make my UI more readable. In other words, I could have extracted
+more methods from my already created methods to adopt the one method - one action policy. This would make debugging and 
+understanding the program far easier.
