@@ -1,0 +1,51 @@
+{"players": [
+    {
+        "pace": 23,
+        "name": "Afif",
+        "defending": 23,
+        "physicality": 23,
+        "attacking": 23
+    },
+    {
+        "pace": 95,
+        "name": "Messi",
+        "defending": 97,
+        "physicality": 98,
+        "attacking": 96
+    },
+    {
+        "pace": 23,
+        "name": "Ibrahimovic",
+        "defending": 77,
+        "physicality": 96,
+        "attacking": 87
+    },
+    {
+        "pace": 98,
+        "name": "Azim",
+        "defending": 11,
+        "physicality": 23,
+        "attacking": 11
+    },
+    {
+        "pace": 88,
+        "name": "Ronaldo",
+        "defending": 23,
+        "physicality": 76,
+        "attacking": 88
+    },
+    {
+        "pace": 93,
+        "name": "Mbappe",
+        "defending": 43,
+        "physicality": 66,
+        "attacking": 89
+    },
+    {
+        "pace": 78,
+        "name": "Ronaldo",
+        "defending": 78,
+        "physicality": 99,
+        "attacking": 78
+    }
+]}
